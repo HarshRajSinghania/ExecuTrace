@@ -83,6 +83,19 @@ exectrace stop
 exectrace replay my-workflow --explain
 ```
 
+### Smart replay and previews
+
+Use `exectrace replay my-workflow --smart` to skip actions completed by an earlier
+smart replay. Progress is saved after each successful action, so a later failure
+leaves the earlier actions checkpointed for the next attempt.
+
+Add `--dry-run` to preview the remaining actions without executing them or changing
+the saved replay state:
+
+```bash
+exectrace replay my-workflow --smart --dry-run
+```
+
 ---
 
 ## License

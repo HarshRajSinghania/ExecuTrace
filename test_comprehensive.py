@@ -197,6 +197,16 @@ def test_replayer():
     print("✅ Replay functionality working\n")
     return True
 
+
+def run_replay_state_tests() -> bool:
+    """Run checkpoint regressions with both storage backends."""
+    import unittest
+    from test_replayer_state import ReplayStateTests
+
+    suite = unittest.defaultTestLoader.loadTestsFromTestCase(ReplayStateTests)
+    return unittest.TextTestRunner(verbosity=2).run(suite).wasSuccessful()
+
+
 def main_test():
     """Run all tests."""
     print("=" * 60)
@@ -209,6 +219,7 @@ def main_test():
         test_storage_backends,
         test_workflow_operations,
         test_replayer,
+        run_replay_state_tests,
     ]
     
     results = []
@@ -227,6 +238,6 @@ def main_test():
     return all(results)
 
 if __name__ == "__main__":
-    os.chdir("/home/w4nn4d13/Project/ExecuTrace")
+    os.chdir(Path(__file__).resolve().parent)
     success = main_test()
     sys.exit(0 if success else 1)

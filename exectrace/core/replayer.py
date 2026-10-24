@@ -43,14 +43,12 @@ class Replayer:
 
             if dry_run:
                 print(f"[{idx}] DRY-RUN: {action.action_type}")
-                newly_completed.add(signature)
                 continue
 
             self._execute_action(idx, action)
             newly_completed.add(signature)
-
-        if smart:
-            self.storage.save_replay_state(workflow.name, newly_completed)
+            if smart:
+                self.storage.save_replay_state(workflow.name, newly_completed)
 
         return len(workflow.actions)
 
